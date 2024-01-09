@@ -1,0 +1,37 @@
+<!-- src/main/resources/templates/employee-form.html -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Employee</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Add Employee</h2>
+
+    <form action="/employees/new" method="post" th:object="${employee}">
+        <div class="input-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" th:field="*{firstName}" required>
+        </div>
+
+        <div class="input-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" th:field="*{lastName}" required>
+        </div>
+
+        <button type="submit">Add Employee</button>
+    </form>
+
+    <form th:action="@{/employees}" method="get" class="back-to-list-form">
+        <button type="submit" class="button">Back to List</button>
+    </form>
+</div>
+
+</body>
+</html>
