@@ -22,3 +22,7 @@ Remove employees from the system with a simple click.
 ## About the Developer:
 
 This Employee Management System was skillfully developed, and its efficiency was enhanced through the use of ChatGPT, a powerful language model developed by OpenAI. This collaboration enabled rapid development, contributing to the creation of a seamless and resource-efficient in-memory application.
+
+## Demo Deployment on Kubernetes with ArgoCD:
+
+This application is prepared for a demo deployment on Kubernetes using ArgoCD. The Kubernetes manifests and deployment configurations are included to facilitate easy deployment and management through ArgoCD.
