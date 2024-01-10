@@ -26,3 +26,58 @@ This Employee Management System was skillfully developed, and its efficiency was
 ## Demo Deployment on Kubernetes with ArgoCD:
 
 This application is prepared for a demo deployment on Kubernetes using ArgoCD. The Kubernetes manifests and deployment configurations are included to facilitate easy deployment and management through ArgoCD.
+
+# Employee Management Application
+
+This application is designed to manage employee information using a Dockerized environment. Follow the steps below to run the application on an EC2 instance.
+
+## Prerequisites
+- [Docker](https://docs.docker.com/get-docker/) installed on your EC2 instance.
+
+## Steps to Run the Application
+
+1. **SSH into your EC2 instance:**
+    ```bash
+    ssh -i your-key.pem ubuntu@your-ec2-instance-ip
+    ```
+
+2. **Update and Install Dependencies:**
+    ```bash
+    sudo apt update
+    sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
+    ```
+
+3. **Add Docker GPG Key and Repository:**
+    ```bash
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    echo "deb [signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt update
+    ```
+
+4. **Install Docker:**
+    ```bash
+    sudo apt install -y docker-ce docker-ce-cli containerd.io
+    ```
+
+5. **Add User to Docker Group:**
+    ```bash
+    sudo usermod -aG docker $USER
+    ```
+    Note: You may need to log out and log back in for the group changes to take effect.
+
+6. **Pull Docker Image:**
+    ```bash
+    docker pull gadagojushiva/employee-management:14
+    ```
+
+7. **Run Docker Container:**
+    ```bash
+    docker run -d -p 8080:8080 gadagojushiva/employee-management:14
+    ```
+
+8. **Access the Application:**
+    - Go to your EC2 instance and copy the IP address.
+    - Open a web browser and navigate to `http://your-ec2-instance-ip:8080/employees`
+
+Now, you should be able to access the Employee Management Application on your EC2 instance.
+
