@@ -1,4 +1,4 @@
-# Setting up Jenkins and SonarQube on AWS EC2 Instance
+<!-- # Setting up Jenkins and SonarQube on AWS EC2 Instance
 
 ## Launch an EC2 instance
 
@@ -94,4 +94,4 @@ Log in to ArgoCD UI and create an application.
 Pipeline is now set up and deployed using ArgoCD!
 
 Remember to replace placeholders such as `<version>`, `your-ec2-public-ip`, and other specific details with your actual values.
-
+ -->
