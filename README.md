@@ -27,10 +27,6 @@ This Employee Management System was skillfully developed, and its efficiency was
 
 This application is prepared for a demo deployment on Kubernetes using ArgoCD. The Kubernetes manifests and deployment configurations are included to facilitate easy deployment and management through ArgoCD.
 
-# Employee Management Application
-
-This application is designed to manage employee information using a Dockerized environment. Follow the steps below to run the application on an EC2 instance.
-
 ## Prerequisites
 - [Docker](https://docs.docker.com/get-docker/) installed on your EC2 instance.
 
