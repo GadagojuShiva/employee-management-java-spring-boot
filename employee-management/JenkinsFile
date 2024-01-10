@@ -20,10 +20,10 @@ pipeline {
     }
     stage('Static Code Analysis') {
       environment {
-        SONAR_URL = "http://18.209.224.119:9000"
+        SONAR_URL = "http://54.161.235.253:9000"
       }
       steps {
-        withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
+        withCredentials([string(credentialsId: 'sonar', variable: 'SONAR_AUTH_TOKEN')]) {
           sh 'cd employee-management && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
         }
       }
@@ -32,7 +32,7 @@ pipeline {
       environment {
         DOCKER_IMAGE = "gadagojushiva/employee-management:${BUILD_NUMBER}"
         // DOCKERFILE_LOCATION = "employee-management-system"
-        REGISTRY_CREDENTIALS = credentials('docker-cred')
+        REGISTRY_CREDENTIALS = credentials('docker-creds')
       }
       steps {
         script {
