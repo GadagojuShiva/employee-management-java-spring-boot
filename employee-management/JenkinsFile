@@ -31,7 +31,7 @@ pipeline {
     stage('Build and Push Docker Image') {
       environment {
         DOCKER_IMAGE = "gadagojushiva/employee-management:${BUILD_NUMBER}"
-        // DOCKERFILE_LOCATION = "employee-management-system"
+        // DOCKERFILE_LOCATION = "employee-management-java-spring-boot/employee-management-system"
         REGISTRY_CREDENTIALS = credentials('docker-creds')
       }
       steps {
