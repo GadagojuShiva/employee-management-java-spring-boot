@@ -5,6 +5,10 @@ WORKDIR /opt/app
 
 COPY . .
 
+# Make the mvnw script executable
+RUN chmod +x mvnw
+
+# Run Maven without sudo
 RUN ./mvnw clean package
 
 # Stage 2: Runtime Stage
