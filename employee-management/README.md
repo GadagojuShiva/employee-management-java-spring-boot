@@ -77,3 +77,16 @@ This application is prepared for a demo deployment on Kubernetes using ArgoCD. T
 
 Now, you should be able to access the Employee Management Application on your EC2 instance.
 
+## Alternative Local Deployment:
+
+- Alternatively, you can clone the repository:
+```bash
+git clone https://github.com/your-username/employee-management.git
+cd employee-management
+```
+
+- Run the application using Maven:
+```bash
+mvn spring-boot:run
+Access the application on your local machine at http://localhost:8080/employees.
+```
