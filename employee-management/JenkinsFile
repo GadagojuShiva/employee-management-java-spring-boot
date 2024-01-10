@@ -13,8 +13,6 @@ pipeline {
     }
     stage('Build and Test') {
       steps {
-        sh 'ls -ltr'
-        // build the project and create a JAR file
         sh 'cd employee-management && mvn clean package'
         sh 'ls -ltr employee-management/target'
       }
