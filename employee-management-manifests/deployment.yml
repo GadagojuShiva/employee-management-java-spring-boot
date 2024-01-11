@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: Employee-Management-System
+  name: employee-management-system
   labels:
-    app: Employee-Management-System
+    app: employee-management-system
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: Employee-Management-System
+      app: employee-management-system
   template:
     metadata:
       labels:
-        app: Employee-Management-System
+        app: employee-management-system
     spec:
       containers:
-      - name: Employee-Management-System
+      - name: employee-management-system
         image: gadagojushiva/employee-management-system:3
         ports:
         - containerPort: 8080
