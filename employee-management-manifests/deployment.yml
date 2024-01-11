@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: Employee-Management-System
-        image: gadagojushiva/employee-management-system:replaceImageTag 
+        image: gadagojushiva/employee-management-system:3 
         ports:
         - containerPort: 8080
