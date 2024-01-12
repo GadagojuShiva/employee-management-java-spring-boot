@@ -263,10 +263,12 @@ minikube service list
 
 ## Extra Screenshots and CleanUp:
 
+<li> Delete Minikube
+<li> Terminate EC2 Instance
+<li> Don't Forget to delete the token that generated in the github
+  
 ```bash
-kubectl get pods
 minikube delete
-kubectl get pods
 ```
 ![EC2 Console](./assests/screenshots/pods.png)
 ![EC2 Console](./assests/screenshots/minikube%20delete.png)
