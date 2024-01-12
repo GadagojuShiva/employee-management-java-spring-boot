@@ -20,7 +20,7 @@ Remove employees from the system with a simple click.
 - **Storage:** In-memory storage eliminates the need for an external database, making it a lightweight solution.
 
 ## About the Developer:
-
+**@Gadagoju Shiva**
 This Employee Management System was skillfully developed, and its efficiency was enhanced through the use of ChatGPT, a powerful language model developed by OpenAI. This collaboration enabled rapid development, contributing to the creation of a seamless and resource-efficient in-memory application.
      
 # Detailed Step-by-Step Process
