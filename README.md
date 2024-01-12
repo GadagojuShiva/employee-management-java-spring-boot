@@ -1,4 +1,6 @@
-# Employee Management System
+<div align="center">
+  <h1>🎉 Employee Management System! 🎉</h1>
+</div>
 
 The Employee Management System is a lightweight, in-memory web application designed to simplify the handling of employee information. Developed using Spring Boot and Thymeleaf, this application enables users to effortlessly add, view, and delete employee records. The intuitive interface provides a smooth experience for managing your workforce without the need for external databases.
 
