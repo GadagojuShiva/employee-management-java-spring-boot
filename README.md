@@ -53,7 +53,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```bash
 sudo su -
 ```
-
+## install-sonarqube-on-ec2-instance
 ### Step 6: Add a user named "sonarqube" and switch to that user
 
 ```bash
