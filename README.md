@@ -253,6 +253,11 @@ kubectl get svc
 minikube service list
 ```
 ![EC2 Console](./assests/screenshots/svc%20list.png)
+```bash
+kubectl get pods
+```
+![EC2 Console](./assests/screenshots/pods.png)
+
 **Access the application at the provided URL.**
 
 ![EC2 Console](./assests/screenshots/application-running.png)
@@ -270,7 +275,6 @@ minikube service list
 ```bash
 minikube delete
 ```
-![EC2 Console](./assests/screenshots/pods.png)
 ![EC2 Console](./assests/screenshots/minikube%20delete.png)
 ![EC2 Console](./assests/screenshots/delete.png)
 
