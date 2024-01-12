@@ -27,7 +27,7 @@ This Employee Management System was skillfully developed, and its efficiency was
 
 ## Architechture
 
-![Alt Text](./assests/screenshots/Architecture.jpg)
+![Architecture](./assests/screenshots/Architecture.jpg)
 
 # Detailed Step-by-Step Process
 
