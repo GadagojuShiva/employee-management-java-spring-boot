@@ -77,6 +77,7 @@ cd sonarqube-9.4.0.54424/bin/linux-x86-64/
 password = admin
 username = admin
 ```
+## Configure-jenkins-for-sonarqube-integration
 ![EC2 Console](./assests/screenshots/sonarqube-token.png)
 ### Step 8: Generate a GitHub token and add it to Jenkins
 
@@ -92,6 +93,8 @@ username = admin
 
 ### Step 10: Add Git and Docker credentials in Jenkins
 <li>To add Git and Docker in Jenkins credentials, go to Jenkins → manage Jenkins → credentials → global → add credentials
+     
+## install-docker-on-ec2-instance
 
 ### Step 11: Install Docker on the EC2 instance
 ```bash
@@ -115,7 +118,7 @@ For macOS:
     minikube start --memory=3000 --driver=hyperkit
 ```
 
-## Install Argo CD on Kubernetes
+## Install - Argo - Cd - On - Kubernetes
 ![EC2 Console](./assests/screenshots/argo-cdoperator.png)
 ### Step 1: Install Operator Lifecycle Manager (OLM)
 ```bash
