@@ -24,7 +24,11 @@ Remove employees from the system with a simple click.
 ## About the Developer:
 **@Gadagoju Shiva**
 This Employee Management System was skillfully developed, and its efficiency was enhanced through the use of ChatGPT, a powerful language model developed by OpenAI. This collaboration enabled rapid development, contributing to the creation of a seamless and resource-efficient in-memory application.
-     
+
+## Architechture
+
+![Alt Text](https://github.com/GadagojuShiva/jenkins-examples/blob/main/Architecture.jpg)
+
 # Detailed Step-by-Step Process
 
 ## Table of Contents
