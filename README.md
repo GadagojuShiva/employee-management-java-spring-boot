@@ -1,11 +1,4 @@
-<body style="display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #f4f4f4;">
-    <div style="text-align: center;">
-        <p style="font-size: 24px; color: #3498db; font-weight: bold;">
-            Employee Management System Spring Boot application using Maven and deployed it to Kubernetes using Argo CD!
-        </p>
-    </div>
-</body>
-
+# Employee Management System Spring Boot application using Maven and deployed it to Kubernetes using Argo CD!
      
 # Detailed Step-by-Step Process
 
