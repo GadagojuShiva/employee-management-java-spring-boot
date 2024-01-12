@@ -1,7 +1,9 @@
+<body>
 <p style="text-align: center; font-size: 24px; color: #3498db; font-weight: bold;">
      Employee Management System Spring Boot application using Maven and deployed it to Kubernetes using Argo CD!
 </p>
-
+</body>
+     
 # Detailed Step-by-Step Process
 
 ## Table of Contents
