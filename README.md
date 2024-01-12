@@ -1,97 +1,272 @@
-<!-- # Setting up Jenkins and SonarQube on AWS EC2 Instance
+<p style="text-align: center; font-size: 24px; color: #3498db; font-weight: bold;">
+     Employee Management System Spring Boot application using Maven and deployed it to Kubernetes using Argo CD!
+</p>
 
-## Launch an EC2 instance
+# Detailed Step-by-Step Process
 
-1. Log in to your AWS Management Console.
-2. Navigate to EC2 and launch a new instance.
-3. Choose an Amazon Machine Image (AMI), configure instance details, and add storage.
-4. Configure security groups to allow incoming traffic on port 8080.
+## Table of Contents
 
-## Install Jenkins on the EC2 instance
+1. [Launch EC2 Instance with t2.large and Ubuntu using a Keypair](#launch-ec2-instance-with-t2large-and-ubuntu-and-a-keypair)
+2. [Install Java and Jenkins on EC2 Instance](#install-java-and-jenkins-on-ec2-instance)
+3. [Install SonarQube on EC2 Instance](#install-sonarqube-on-ec2-instance)
+4. [Configure Jenkins for SonarQube Integration](#configure-jenkins-for-sonarqube-integration)
+5. [Install Docker on EC2 Instance](#install-docker-on-ec2-instance)
+6. [Install Argo CD on Kubernetes](#install-argo-cd-on-kubernetes)
+---
+
+## Launch EC2 Instance with t2.large and Ubuntu using a Keypair
+
+![EC2 Console](./assests/screenshots/ec-console.png)
+
+**SSH To the EC2 instance:**
 
 ```bash
-# SSH into the EC2 instance
-ssh -i your-key-pair.pem ec2-user@your-ec2-public-ip
+ssh -i <keypair.pem> ubuntu@<ec2ip>
+```
+## Install Java and Jenkins on EC2 Instance
 
-# Install Jenkins
-sudo yum update -y
-sudo yum install -y java-1.8.0-openjdk
-sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat-stable/jenkins.repo
-sudo rpm --import http://pkg.jenkins.io/redhat-stable/jenkins.io.key
-sudo yum install -y jenkins
-sudo systemctl start jenkins
-sudo systemctl enable jenkins
+### Step 1: Update package list and install Java 11
 
-## Install SonarQube and create a SonarQube user
-# Switch to SonarQube user
-sudo adduser sonarqube
-su sonarqube
+```bash
+sudo apt update
+sudo apt install openjdk-11-jre
+```
+### Step 2: Verify Java installation
 
-# Install SonarQube
-wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-<version>.zip
-unzip sonarqube-<version>.zip
-mv sonarqube-<version> sonarqube
-cd sonarqube/bin/linux-x86-64
+```bash
+java -version
+```
+### Step 3: Install Jenkins
+
+```bash
+curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install jenkins
+```
+### Step 4: Copy the Jenkins key generated during installation and paste it into Jenkins
+**The initial admin password for Jenkins is stored in:**
+
+```bash
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+### Step 5: Switch to the root user
+
+```bash
+sudo su -
+```
+
+### Step 6: Add a user named "sonarqube" and switch to that user
+
+```bash
+adduser sonarqube
+sudo su - sonarqube
+```
+
+### Step 7: Install SonarQube and generate a token
+
+```bash
+apt install unzip
+wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.4.0.54424.zip
+unzip *
+chmod -R 755 /home/sonarqube/sonarqube-9.4.0.54424
+chown -R sonarqube:sonarqube /home/sonarqube/sonarqube-9.4.0.54424
+cd sonarqube-9.4.0.54424/bin/linux-x86-64/
 ./sonar.sh start
+```
+**Access SonarQube in the browser and generate a token**
+```bash
+password = admin
+username = admin
+```
+![EC2 Console](./assests/screenshots/sonarqube-token.png)
+### Step 8: Generate a GitHub token and add it to Jenkins
 
-Visit http://your-ec2-public-ip:9000 to access SonarQube.
+<li>To Generate a GitHub token, go to GitHub settings → developers settings → tokens → generate classic token
 
-Generate a token in SonarQube for later use.
+![EC2 Console](./assests/screenshots/github-token%20genraton.png)
 
-## Configure Jenkins credentials
+<li>To add GitHub token in Jenkins, go to Jenkins → manage Jenkins → credentials → global → add credentials
 
-Open Jenkins in your browser: http://your-ec2-public-ip:8080
-Unlock Jenkins using the initial password from /var/lib/jenkins/secrets/initialAdminPassword.
-Install suggested plugins.
-Create credentials for SonarQube, GitHub, and Docker in Jenkins.
+### Step 9: Install required plugins in Jenkins: Docker Pipeline, SonarQube Scanner
 
-## Install Docker on the EC2 instance
+<li>Go to manage Jenkins → plugins → available plugins → search for Docker Pipeline and SonarQube plugins and install them
 
-# Switch back to the normal user
-exit
+### Step 10: Add Git and Docker credentials in Jenkins
+<li>To add Git and Docker in Jenkins credentials, go to Jenkins → manage Jenkins → credentials → global → add credentials
 
-# Install Docker
-sudo yum install -y docker
-sudo systemctl start docker
-sudo systemctl enable docker
+### Step 11: Install Docker on the EC2 instance
+```bash
+sudo apt update
+sudo apt install docker.io
+```
 
-# Add the user to the docker group
-sudo usermod -aG docker jenkins
+### Step 12: Grant Jenkins and Ubuntu users permissions to Docker daemon
+```bash
+sudo su -
+usermod -aG docker jenkins
+usermod -aG docker ubuntu
+systemctl restart docker
+```
+### Step 13: Launch the Minikube cluster in your local system, not in EC2
 
-## Setting up Jenkins Job
+```bash
+For Windows:
+    minikube start --memory=3000 --driver=hyperv
+For macOS:
+    minikube start --memory=3000 --driver=hyperkit
+```
 
-Create a new Jenkins job.
-Configure the source code management (SCM) with your Git repository.
-Define the build pipeline steps.
+## Install Argo CD on Kubernetes
+![EC2 Console](./assests/screenshots/argo-cdoperator.png)
+### Step 1: Install Operator Lifecycle Manager (OLM)
+```bash
+curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.26.0/install.sh | bash -s v0.26.0
+```
+### Step 2: Install Argo CD Operator
+```bash
+kubectl create -f https://operatorhub.io/install/argocd-operator.yaml
+```
+### Step 3: Create Argo CD cluster manifest (argocd-cluster.yaml)
+```yml
+apiVersion: argoproj.io/v1alpha1
+kind: ArgoCD
+metadata:
+  name: example-argocd
+  labels:
+    example: basic
+spec: {}
+```
+### Step 4: Apply the manifest
 
-## Setting up ArgoCD on Minikube
+```bash
+kubectl apply -f argocd-cluster.yaml
+```
+### Step 5: Get the Argo CD service and change it from ClusterIP to NodePort
 
-minikube start
-Install ArgoCD using operators
+```bash
+kubectl get svc
+kubectl edit svc <argocd-service-name>
+# Change type: ClusterIP to type: NodePort
+```
+### Step 6: To get the admin password
 
-bash
-Copy code
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-Expose ArgoCD service via NodePort
+```bash
+kubectl get secrets
+kubectl get secret <argocd-secret-name> -o=jsonpath='{.data.admin\.password}' | base64 -d
+```
 
-bash
-Copy code
-kubectl edit svc argocd-server -n argocd
-# Change 'type: ClusterIP' to 'type: NodePort' and save
+### Step 7: Access Argo CD web UI using the NodePort and login with admin credentials
+![EC2 Console](./assests/screenshots/argocd-login.png)
 
-Access ArgoCD UI
+## Final Steps:
+<li>Now create a new item in Jenkins using a pipeline
 
-bash
-Copy code
-minikube service -n argocd argocd-server --url
-Get ArgoCD initial password
+<li>Change the Jenkins pipeline script
+<li>Add the SonarQube URL to the Jenkins script
+<li>Also, check that the credentials name in Jenkins should <li>match the credentials in the Jenkins script
+<li>Build the pipeline
+<li>Even if you get errors, it's totally fine; check the logs and solve the issues using ChatGPT or Google to help.
 
-bash
-Copy code
-kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath='{.data.password}' | base64 -d
-Log in to ArgoCD UI and create an application.
-Pipeline is now set up and deployed using ArgoCD!
+**Pipeline:**
+![EC2 Console](./assests/screenshots/jenkins-pipeline.png)
 
-Remember to replace placeholders such as `<version>`, `your-ec2-public-ip`, and other specific details with your actual values.
- -->
+**Build sucessfully:**
+![EC2 Console](./assests/screenshots/build%20succes.png)
+**Check Docker Hub:**
+![EC2 Console](./assests/screenshots/docker-hub.png)
+
+### Now Create an application in Argo CD using the UI
+<li> Create application → name = "employee-management" → namespace = "default" → git repo = "https://github.com/gadagojushiva/employee-management-system" → path = "employee-management-manifest" → create
+
+![EC2 Console](./assests/screenshots/argocd-dashboard.png)
+
+### Now check in Minikube
+```bash
+kubectl get pods
+```
+```bash
+kubectl get svc
+```
+### Create a service for the application:
+```bash
+vim employee-management-service.yml
+```
+**Add the following to the YAML file:**
+
+```yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: employee-management-system
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: employee-management-system
+```
+**To Get the Services**
+```bash
+kubectl get svc
+```
+![EC2 Console](./assests/screenshots/svc.png)
+```bash
+minikube service list
+```
+![EC2 Console](./assests/screenshots/svc%20list.png)
+**Access the application at the provided URL.**
+
+![EC2 Console](./assests/screenshots/application-running.png)
+
+<style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .congratulations-container {
+            text-align: center;
+        }
+
+        .congratulations-text {
+            font-size: 36px;
+            color: #2ecc71; /* Green color */
+            font-weight: bold;
+        }
+
+        .celebration-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="congratulations-container">
+        <div class="congratulations-text">🎉 Congratulations! 🎉</div>
+    </div>
+</body>
+
+## Extra Screenshots and CleanUp:
+
+```bash
+kubectl get pods
+minikube delete
+kubectl get pods
+```
+![EC2 Console](./assests/screenshots/pods.png)
+![EC2 Console](./assests/screenshots/minikube%20delete.png)
+![EC2 Console](./assests/screenshots/delete.png)
+
+
+<p style="text-align: center; font-size: 24px; color: #3498db; font-weight: bold;">
+    Successfully built an Employee Management System Spring Boot application using Maven and deployed it to Kubernetes using Argo CD!
+</p>
