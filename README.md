@@ -255,11 +255,9 @@ minikube service list
 
 ![EC2 Console](./assests/screenshots/application-running.png)
 
-
-<p style="text-align: center; font-size: 36px; color: #2ecc71; font-weight: bold;">
-    🎉 Congratulations! 🎉
-</p>
-
+<div align="center">
+  <h1>🎉 Congratulations! 🎉</h1>
+</div>
 
 ## Extra Screenshots and CleanUp:
 
