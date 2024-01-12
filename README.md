@@ -273,4 +273,4 @@ kubectl get pods
 ![EC2 Console](./assests/screenshots/delete.png)
 
 
-# 🎉 Successfully built an Employee Management System Spring Boot application using Maven and deployed it to Kubernetes using Argo CD! 🎉 
+### 🎉 Successfully built an Employee Management System Spring Boot application using Maven and deployed it to Kubernetes using Argo CD! 🎉 
