@@ -222,38 +222,11 @@ minikube service list
 
 ![EC2 Console](./assests/screenshots/application-running.png)
 
-<style>
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f4;
-        }
 
-        .congratulations-container {
-            text-align: center;
-        }
+<p style="text-align: center; font-size: 36px; color: #2ecc71; font-weight: bold;">
+    🎉 Congratulations! 🎉
+</p>
 
-        .congratulations-text {
-            font-size: 36px;
-            color: #2ecc71; /* Green color */
-            font-weight: bold;
-        }
-
-        .celebration-image {
-            max-width: 100%;
-            height: auto;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="congratulations-container">
-        <div class="congratulations-text">🎉 Congratulations! 🎉</div>
-    </div>
-</body>
 
 ## Extra Screenshots and CleanUp:
 
