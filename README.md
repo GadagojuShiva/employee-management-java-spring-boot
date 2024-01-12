@@ -4,12 +4,21 @@
 
 ## Table of Contents
 
-1. [Launch EC2 Instance with t2.large and Ubuntu using a Keypair](#launch-ec2-instance-with-t2large-and-ubuntu-and-a-keypair)
+1. [Launch EC2 Instance with t2.large and Ubuntu using a Keypair](#launch-ec2-instance-with-t2large-and-ubuntu-using-a-keypair)
 2. [Install Java and Jenkins on EC2 Instance](#install-java-and-jenkins-on-ec2-instance)
 3. [Install SonarQube on EC2 Instance](#install-sonarqube-on-ec2-instance)
 4. [Configure Jenkins for SonarQube Integration](#configure-jenkins-for-sonarqube-integration)
 5. [Install Docker on EC2 Instance](#install-docker-on-ec2-instance)
 6. [Install Argo CD on Kubernetes](#install-argo-cd-on-kubernetes)
+7. [Final Steps](#final-steps)
+    - [Create a new item in Jenkins using a pipeline](#now-create-a-new-item-in-jenkins-using-a-pipeline)
+    - [Change the Jenkins pipeline script](#change-the-jenkins-pipeline-script)
+    - [Build the pipeline](#build-the-pipeline)
+    - [Check Docker Hub](#check-docker-hub)
+    - [Create an application in Argo CD using the UI](#now-create-an-application-in-argo-cd-using-the-ui)
+    - [Check in Minikube](#now-check-in-minikube)
+    - [Extra Screenshots and CleanUp](#extra-screenshots-and-cleanup)
+
 ---
 
 ## Launch EC2 Instance with t2.large and Ubuntu using a Keypair
